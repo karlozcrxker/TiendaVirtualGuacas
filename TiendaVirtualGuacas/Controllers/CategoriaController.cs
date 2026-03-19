@@ -13,7 +13,9 @@ namespace TiendaVirtualGuacas.Controllers
                 new Categoria {Nombre = "Ropa", Descripcion = "Prendas de vestir"},
                 new Categoria {Nombre = "", Descripcion = "Sin nombre definido"}
             };
+            //Holaaa
 
+            //Uno
             return View(categorias);
         }
     }
