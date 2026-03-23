@@ -23,5 +23,37 @@ namespace TiendaVirtualGuacas.Controllers
 
             return View(productos);
         }
+
+        //Guardar producto
+        [HttpPost]
+        public IActionResult Create(Producto producto)
+        {
+            _context.Productos.Add(producto);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        //Formulario editar
+        public IActionResult Edit(int id)
+        {
+            var producto = _context.Productos.Find(id);
+            ViewBag.Categorias = _context.Categorias.ToList();
+
+            return View(producto);
+        }
+
+        //Eliminar producto
+        public IActionResult Delete(int id)
+        {
+            var producto = _context.Productos.Find(id);
+
+            _context.Productos.Remove(producto);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+                
     }
 }
