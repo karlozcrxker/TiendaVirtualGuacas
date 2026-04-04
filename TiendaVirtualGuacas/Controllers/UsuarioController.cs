@@ -6,25 +6,23 @@ using TiendaVirtualGuacas.Models;
 
 namespace TiendaVirtualGuacas.Controllers
 {
-    public class ProductoController : Controller
+    public class UsuarioController : Controller
     {
         private readonly TiendaContext _context;
 
-        public ProductoController(TiendaContext context)
+        public UsuarioController(TiendaContext context)
         {
             _context = context;
         }
 
         public IActionResult Index()
         {
-            var productos = _context.Productos
-                .Include(p => p.Categoria)
-                .ToList();
+            var usuarios = _context.Usuarios.ToList();
 
-            return View(productos);
+            return View(usuarios);
         }
 
-        //Guardar producto
+        //Guardar usuario
 
         public IActionResult Create()
         {
@@ -32,9 +30,9 @@ namespace TiendaVirtualGuacas.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Producto producto)
+        public IActionResult Create(Usuario usuario)
         {
-            _context.Productos.Add(producto);
+            _context.Usuarios.Add(usuario);
             _context.SaveChanges();
 
             return RedirectToAction("Index");
@@ -43,23 +41,22 @@ namespace TiendaVirtualGuacas.Controllers
         //Formulario editar
         public IActionResult Edit(int id)
         {
-            var producto = _context.Productos.Find(id);
-            ViewBag.Categorias = _context.Categorias.ToList();
+            var usuario = _context.Usuarios.Find(id);
 
-            return View(producto);
+            return View(usuario);
         }
 
-        //Eliminar producto
+        //Eliminar usuario
         public IActionResult Delete(int id)
         {
-            var producto = _context.Productos.Find(id);
+            var usuario = _context.Usuarios.Find(id);
 
-            _context.Productos.Remove(producto);
+            _context.Usuarios.Remove(usuario);
             _context.SaveChanges();
 
             return RedirectToAction("Index");
         }
 
-                
+
     }
 }
