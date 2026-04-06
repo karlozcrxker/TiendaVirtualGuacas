@@ -49,6 +49,14 @@ namespace TiendaVirtualGuacas.Controllers
             return View(producto);
         }
 
+        public IActionResult Edit(Producto producto)
+        {
+            _context.Productos.Update(producto);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
         //Eliminar producto
         public IActionResult Delete(int id)
         {
