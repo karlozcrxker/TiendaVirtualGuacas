@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using TiendaVirtualGuacas.Data;
 using TiendaVirtualGuacas.Models;
 
-namespace TiendaVirtualGuacas.Controllers
+
+namespace TiendaVirtualOrtiz.Controllers
 {
     public class UsuarioController : Controller
     {
@@ -42,8 +43,20 @@ namespace TiendaVirtualGuacas.Controllers
         public IActionResult Edit(int id)
         {
             var usuario = _context.Usuarios.Find(id);
+            ViewBag.Usuarios = _context.Usuarios.ToList();
+
 
             return View(usuario);
+        }
+
+        //Actualizar producto
+        [HttpPost]
+        public IActionResult Edit(Usuario usuario)
+        {
+            _context.Usuarios.Update(usuario);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
         //Eliminar usuario
