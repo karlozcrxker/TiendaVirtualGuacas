@@ -17,6 +17,11 @@ namespace TiendaVirtualGuacas.Controllers
 
         public IActionResult Index()
         {
+            if(HttpContext.Session.GetString("Usuario")==null)
+            {
+                return RedirectToAction("Index", "Login")
+            }
+
             var productos = _context.Productos
                 .Include(p => p.Categoria)
                 .ToList();
