@@ -6,11 +6,11 @@ using TiendaVirtualGuacas.Models;
 
 namespace TiendaVirtualGuacas.Controllers
 {
-    public class Categoria : Controller
+    public class CategoriaController : Controller
     {
         private readonly TiendaContext _context;
 
-        public Categoria(TiendaContext context)
+        public CategoriaController(TiendaContext context)
         {
             _context = context;
         }

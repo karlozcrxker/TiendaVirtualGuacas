@@ -21,13 +21,11 @@
                 <td>
                     @if (string.IsNullOrEmpty(cat.Nombre))
                     {
-                        <span class="btn btn-warning btn-sm"
-                           href="/Categoria/Edit/@cat.Id">Sin nombre</span>
+                        <span class="text-danger" href="/Categoria/Edit/@cat.Id">Sin nombre</span>
                     }
                     else
                     {
-                        <span class="btn btn-danger btn-sm"
-                        href="/Producto/Delete/@cat.Id">Activa</span>
+                        <span class="text-success"href="/Categoria/Delete/@cat.Id">Activa</span>
                     }
                 </td>
             </tr>

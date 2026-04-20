@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TiendaVirtualGuacas.Models;
 
 namespace TiendaVirtualGuacas.Models
 {
