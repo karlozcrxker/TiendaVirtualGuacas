@@ -50,7 +50,6 @@ namespace TiendaVirtualOrtiz.Controllers
             var usuario = _context.Usuarios.Find(id);
             ViewBag.Usuarios = _context.Usuarios.ToList();
 
-
             return View(usuario);
         }
 

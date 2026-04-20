@@ -26,7 +26,7 @@ namespace TiendaVirtualGuacas.Controllers
                 HttpContext.Session.SetString("Usuario", usuario.Nombre);
                 HttpContext.Session.SetString("Rol", usuario.Rol);
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Categoria");
             }
             ViewBag.Error = "Credenciales incorrectas";
             return View();

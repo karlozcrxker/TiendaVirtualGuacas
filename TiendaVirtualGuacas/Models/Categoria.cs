@@ -11,11 +11,9 @@ namespace TiendaVirtualGuacas.Models
         [StringLength(100)]
         public string Nombre { get; set; }
 
-        [Required]
         [StringLength(1000)]
         public string Descripcion { get; set; }
 
-        [Required]
         [StringLength(100)]
         public string Estado { get; set; }
     }

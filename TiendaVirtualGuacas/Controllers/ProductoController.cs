@@ -55,6 +55,7 @@ namespace TiendaVirtualGuacas.Controllers
             return View(producto);
         }
 
+        [HttpPost]
         public IActionResult Edit(Producto producto)
         {
             _context.Productos.Update(producto);
