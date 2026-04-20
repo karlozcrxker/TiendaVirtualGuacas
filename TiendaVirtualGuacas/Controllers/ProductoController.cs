@@ -19,7 +19,7 @@ namespace TiendaVirtualGuacas.Controllers
         {
             if(HttpContext.Session.GetString("Usuario")==null)
             {
-                return RedirectToAction("Index", "Login")
+                return RedirectToAction("Index", "Login");
             }
 
             var productos = _context.Productos
