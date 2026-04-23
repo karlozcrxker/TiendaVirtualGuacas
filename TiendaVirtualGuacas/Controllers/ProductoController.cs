@@ -33,6 +33,11 @@ namespace TiendaVirtualGuacas.Controllers
 
         public IActionResult Create()
         {
+            if (HttpContext.Session.GetString("Usuario") == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             ViewBag.Categorias = _context.Categorias.ToList();
             return View();
         }
@@ -40,6 +45,11 @@ namespace TiendaVirtualGuacas.Controllers
         [HttpPost]
         public IActionResult Create(Producto producto)
         {
+            if (HttpContext.Session.GetString("Usuario") == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             _context.Productos.Add(producto);
             _context.SaveChanges();
 
@@ -49,6 +59,11 @@ namespace TiendaVirtualGuacas.Controllers
         //Formulario editar
         public IActionResult Edit(int id)
         {
+            if (HttpContext.Session.GetString("Usuario") == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             var producto = _context.Productos.Find(id);
             ViewBag.Categorias = _context.Categorias.ToList();
 
@@ -58,6 +73,11 @@ namespace TiendaVirtualGuacas.Controllers
         [HttpPost]
         public IActionResult Edit(Producto producto)
         {
+            if (HttpContext.Session.GetString("Usuario") == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             _context.Productos.Update(producto);
             _context.SaveChanges();
 
@@ -67,6 +87,19 @@ namespace TiendaVirtualGuacas.Controllers
         //Eliminar producto
         public IActionResult Delete(int id)
         {
+            if (HttpContext.Session.GetString("Usuario") == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            var rol = HttpContext.Session.GetString("Rol");
+
+            //SOLO ADMIN PUEDE ELIMINAR
+            if (rol != "Admin")
+            {
+                return RedirectToAction("Index");
+            }
+
             var producto = _context.Productos.Find(id);
 
             _context.Productos.Remove(producto);
