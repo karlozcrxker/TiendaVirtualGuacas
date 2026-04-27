@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using TiendaVirtualGuacas.Data;
 using TiendaVirtualGuacas.Models;
+using TiendaVirtualGuacas.Helpers;
 
 
 namespace TiendaVirtualOrtiz.Controllers
@@ -48,6 +49,8 @@ namespace TiendaVirtualOrtiz.Controllers
                 return RedirectToAction("Index", "Login");
             }
             
+            usuario.Clave = HashHelper.ObtenerHash(usuario.Clave);
+
             _context.Usuarios.Add(usuario);
             _context.SaveChanges();
 

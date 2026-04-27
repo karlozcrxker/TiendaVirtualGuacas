@@ -10,7 +10,10 @@
             <th>Nombre</th>
             <th>Descripcion</th>
             <th>Estado</th>
-            <th>Acciones</th>
+            @if (Context.Session.GetString("Rol") == "admin")
+            {
+                <th>Acciones</th>
+            }
         </tr>
     </thead>
     <tbody>
@@ -29,13 +32,18 @@
                         <span class="text-success" @cat.Id">Activa</span>
                     }
                 </td>
-                <td>
+
+                @if (Context.Session.GetString("Rol") == "admin")
+                {
+                    <td>
                     <a class="btn btn-warning btn-sm"
                        href="/Categoria/Edit/@cat.Id">Editar</a>
 
                     <a class="btn btn-danger btn-sm"
                        href="/Categoria/Delete/@cat.Id">Eliminar</a>
-                </td>
+                    </td>
+                }
+                
             </tr>
         }
     </tbody>

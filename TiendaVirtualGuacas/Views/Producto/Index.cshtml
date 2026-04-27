@@ -2,7 +2,10 @@
 
 <h2 class="mb-3">Lista de Productos</h2>
 
-<a class="btn btn-success mb-3" href="/Producto/Create">+ Nuevo Producto</a>
+@if (Context.Session.GetString("Rol") == "admin")
+{
+    <a class="btn btn-success mb-3" href="/Producto/Create">+ Nuevo Producto</a>
+}
 
 <table class="table table-striped table-bordered">
     <thead class="table-dark">
@@ -31,7 +34,7 @@
                 {
                     <td>
                         <a class="btn btn-warning btn-sm"
-                        href="/Producto/Edit/@item.Id">Editar</a>
+                            href="/Producto/Edit/@item.Id">Editar</a>
 
                         <a class="btn btn-danger btn-sm"
                             href="/Producto/Delete/@item.Id">Eliminar</a>

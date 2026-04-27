@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using TiendaVirtualGuacas.Data;
+using TiendaVirtualGuacas.Helpers;
 using TiendaVirtualGuacas.Models;
 
 namespace TiendaVirtualGuacas.Controllers
@@ -19,8 +20,10 @@ namespace TiendaVirtualGuacas.Controllers
         [HttpPost]
         public IActionResult Index(string correo, string clave)
         {
+            string claveHash = HashHelper.ObtenerHash(clave);
+            
             var usuario = _context.Usuarios
-                .FirstOrDefault(u => u.Correo == correo && u.Rol == clave);
+                .FirstOrDefault(u => u.Correo == correo && u.Clave == claveHash);
             if (usuario != null)
             {
                 HttpContext.Session.SetString("Usuario", usuario.Nombre);
