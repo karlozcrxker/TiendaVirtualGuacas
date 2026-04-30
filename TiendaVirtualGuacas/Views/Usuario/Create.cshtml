@@ -28,16 +28,16 @@
 
     <div class="mb-3">
         <label>Celular</label>
-        <input asp-for="celular" class="form-control" />
-        <span asp-validation-for="celular" class="text-danger"></span>
+        <input asp-for="Celular" class="form-control" />
+        <span asp-validation-for="Celular" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
         <label>Clave</label>
         <input asp-for="Clave" type="password" class="form-control" />
+        <span asp-validation-for="Clave" class="text-danger"></span>
     </div>
 
-    <hr>
-    <button type="submit" class="btn btn-success">Guardar</button>
+    <button class="btn btn-success">Guardar</button>
     <a href="/Usuario" class="btn btn-secondary">Volver</a>
 </form>

@@ -11,7 +11,7 @@ using TiendaVirtualGuacas.Data;
 namespace TiendaVirtualGuacas.Migrations
 {
     [DbContext(typeof(TiendaContext))]
-    [Migration("20260427220119_AddClaveUsuario")]
+    [Migration("20260430161551_AddClaveUsuario")]
     partial class AddClaveUsuario
     {
         /// <inheritdoc />

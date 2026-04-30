@@ -6,7 +6,7 @@ using TiendaVirtualGuacas.Models;
 using TiendaVirtualGuacas.Helpers;
 
 
-namespace TiendaVirtualOrtiz.Controllers
+namespace TiendaVirtualGuacas.Controllers
 {
     public class UsuarioController : Controller
     {
@@ -48,13 +48,19 @@ namespace TiendaVirtualOrtiz.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
+
+            if (ModelState.IsValid)
+            {
+                usuario.Clave = HashHelper.ObtenerHash(usuario.Clave);
+
+                _context.Usuarios.Add(usuario);
+                _context.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+
+            return View(usuario);
             
-            usuario.Clave = HashHelper.ObtenerHash(usuario.Clave);
-
-            _context.Usuarios.Add(usuario);
-            _context.SaveChanges();
-
-            return RedirectToAction("Index");
         }
 
         //Formulario editar
