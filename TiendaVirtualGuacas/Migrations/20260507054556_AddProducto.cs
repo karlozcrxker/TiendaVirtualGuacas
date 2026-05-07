@@ -5,7 +5,7 @@
 namespace TiendaVirtualGuacas.Migrations
 {
     /// <inheritdoc />
-    public partial class AddImagenProducto : Migration
+    public partial class AddProducto : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

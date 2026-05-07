@@ -84,14 +84,41 @@ namespace TiendaVirtualGuacas.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Producto producto)
+        public IActionResult Edit(Producto producto, IFormFile imagen)
         {
             if (HttpContext.Session.GetString("Usuario") == null)
             {
                 return RedirectToAction("Index", "Login");
             }
 
-            _context.Productos.Update(producto);
+            var productoBD = _context.Productos.Find(producto.Id);
+            if (productoBD == null)
+                return NotFound();
+            //Actualizar datos normales
+            productoBD.Nombre = producto.Nombre;
+            productoBD.Precio = producto.Precio;
+            productoBD.Stock = producto.Stock;
+            productoBD.CategoriaId = producto.CategoriaId;
+
+            //Si sube nueva imagne
+            if(imagen != null)
+            {
+                var carpeta = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
+
+                if (!Directory.Exists(carpeta))
+                {
+                    Directory.CreateDirectory(carpeta);
+                }
+
+                var ruta = Path.Combine(carpeta, imagen.FileName);
+
+                using (var stream = new FileStream(ruta, FileMode.Create))
+                {
+                    imagen.CopyTo(stream);
+                }
+                productoBD.ImagenUrl = "/images/" + imagen.FileName;
+            }
+
             _context.SaveChanges();
 
             return RedirectToAction("Index");

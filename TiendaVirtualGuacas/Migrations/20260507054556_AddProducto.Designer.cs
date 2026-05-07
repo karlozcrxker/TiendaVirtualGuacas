@@ -11,8 +11,8 @@ using TiendaVirtualGuacas.Data;
 namespace TiendaVirtualGuacas.Migrations
 {
     [DbContext(typeof(TiendaContext))]
-    [Migration("20260504220236_AddImagenProducto")]
-    partial class AddImagenProducto
+    [Migration("20260507054556_AddProducto")]
+    partial class AddProducto
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
