@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using TiendaVirtualGuacas.Data;
 using TiendaVirtualGuacas.Models;
+using System.Text.Json;
 
 namespace TiendaVirtualGuacas.Controllers
 {
@@ -135,7 +136,7 @@ namespace TiendaVirtualGuacas.Controllers
             var rol = HttpContext.Session.GetString("Rol");
 
             //SOLO ADMIN PUEDE ELIMINAR
-            if (rol != "Admin")
+            if (rol != "admin")
             {
                 return RedirectToAction("Index");
             }
@@ -144,6 +145,91 @@ namespace TiendaVirtualGuacas.Controllers
 
             _context.Productos.Remove(producto);
             _context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult AgregarCarrito(int id, int cantidad)
+        {
+            var carritoJson = HttpContext.Session.GetString("Carrito");
+            List<CarritoItem> carrito;
+            if (carritoJson == null)
+            {
+                carrito = new List<CarritoItem>();
+            }
+            else
+            {
+                carrito = JsonSerializer.Deserialize<List<CarritoItem>>(carritoJson);
+            }
+
+            var item = carrito.FirstOrDefault(p => p.ProductoId == id);
+
+            if (item == null)
+            {
+                item.Cantidad += cantidad;
+            }
+            else
+            {
+                carrito.Add(new CarritoItem
+                {
+                    ProductoId = id,
+                    Cantidad = cantidad
+                });
+            }
+            HttpContext.Session.SetString("Carrito", JsonSerializer.Serialize(carrito));
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Carrito()
+        {
+            var carritoJson = HttpContext.Session.GetString("Carrito");
+            List<CarritoItem> carrito;
+
+            if (carritoJson == null)
+                carrito = new List<CarritoItem>();
+            else
+                carrito = JsonSerializer.Deserialize<List<CarritoItem>>(carritoJson);
+
+            var productos = new List<(Producto producto, int cantidad)>();
+
+            foreach (var item in carrito)
+            {
+                var producto = _context.Productos.Find(item.ProductoId);
+
+                if(producto != null)
+                {
+                    productos.Add((producto, item.Cantidad));
+                }
+            }
+
+            return View(productos);
+        }
+
+        public IActionResult Comprar()
+        {
+            var carritoJson = HttpContext.Session.GetString("carrito");
+
+            if (carritoJson == null)
+                return RedirectToAction("Index");
+
+            var carrito = JsonSerializer.Deserialize<List<CarritoItem>>(carritoJson);
+
+            foreach (var item in carrito)
+            {
+                var producto = _context.Productos.Find(item.ProductoId);
+
+                if(producto != null)
+                {
+                    if(producto.Stock >= item.Cantidad)
+                    {
+                        producto.Stock -= item.Cantidad;
+                    }
+                }
+            }
+
+            _context.SaveChanges();
+
+            HttpContext.Session.Remove("Carrito");
 
             return RedirectToAction("Index");
         }
