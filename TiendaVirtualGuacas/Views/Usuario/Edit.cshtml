@@ -28,6 +28,12 @@
             <input asp-for="Celular" class="form-control" />
         </div>
 
+        <div class="mb-3">
+            <label>Contraseña</label>
+            <input asp-for="Clave" class="form-control" />
+            <span asp-validation-for="Clave" class="text-danger"></span>
+        </div>
+
         <button class="btn btn-primary">Actualizar</button>
         <a href="/Usuario" class="btn btn-secondary">Volver</a>
     </form>
